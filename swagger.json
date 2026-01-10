@@ -1,0 +1,2621 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation",
+    "version": "1.0.0",
+    "description": "Generated API documentation"
+  },
+  "paths": {
+    "/category": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Create a new Category",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get all Categorys",
+        "responses": {
+          "200": {
+            "description": "List of Categorys retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get Category by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Category ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Update Category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Category ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Delete Category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Category ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/job": {
+      "post": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Create a new Job",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Job created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Get all Jobs",
+        "responses": {
+          "200": {
+            "description": "List of Jobs retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Job"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/job/{id}": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Get Job by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Job ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Update Job",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Job ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Job updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Delete Job",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Job ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job not found"
+          }
+        }
+      }
+    },
+    "/booking": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Create a new Booking",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Booking created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Booking"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Get all Bookings",
+        "responses": {
+          "200": {
+            "description": "List of Bookings retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Booking"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/booking/{id}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Get Booking by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Booking ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Booking"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Booking not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Update Booking",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Booking ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Booking updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Booking"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Booking not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Delete Booking",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Booking ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Booking"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Booking not found"
+          }
+        }
+      }
+    },
+    "/application": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Create a new Application",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Application created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Get all Applications",
+        "responses": {
+          "200": {
+            "description": "List of Applications retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Application"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/application/{id}": {
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Get Application by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Application ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Application retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Update Application",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Application ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Application updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Delete Application",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Application ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Application deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found"
+          }
+        }
+      }
+    },
+    "/chat": {
+      "post": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Create a new Chat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Chat created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Chat"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Get all Chats",
+        "responses": {
+          "200": {
+            "description": "List of Chats retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Chat"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/{id}": {
+      "get": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Get Chat by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chat ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chat retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Chat"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Chat not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Update Chat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chat ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Chat"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Chat not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Chat"
+        ],
+        "summary": "Delete Chat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chat ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chat deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Chat"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Chat not found"
+          }
+        }
+      }
+    },
+    "/message": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Create a new Message",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Message created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Get all Messages",
+        "responses": {
+          "200": {
+            "description": "List of Messages retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Message"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/message/{id}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Get Message by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Message ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Update Message",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Message ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Delete Message",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Message ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message not found"
+          }
+        }
+      }
+    },
+    "/clientreview": {
+      "post": {
+        "tags": [
+          "Clientreview"
+        ],
+        "summary": "Create a new Clientreview",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientreviewCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Clientreview created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Clientreview"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Clientreview"
+        ],
+        "summary": "Get all Clientreviews",
+        "responses": {
+          "200": {
+            "description": "List of Clientreviews retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Clientreview"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientreview/{id}": {
+      "get": {
+        "tags": [
+          "Clientreview"
+        ],
+        "summary": "Get Clientreview by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Clientreview ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Clientreview retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Clientreview"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Clientreview not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Clientreview"
+        ],
+        "summary": "Update Clientreview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Clientreview ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientreviewUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Clientreview updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Clientreview"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Clientreview not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Clientreview"
+        ],
+        "summary": "Delete Clientreview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Clientreview ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Clientreview deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Clientreview"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Clientreview not found"
+          }
+        }
+      }
+    },
+    "/hello": {
+      "post": {
+        "tags": [
+          "Hello"
+        ],
+        "summary": "Create a new Hello",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HelloCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Hello created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Hello"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Hello"
+        ],
+        "summary": "Get all Hellos",
+        "responses": {
+          "200": {
+            "description": "List of Hellos retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Hello"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hello/{id}": {
+      "get": {
+        "tags": [
+          "Hello"
+        ],
+        "summary": "Get Hello by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hello ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hello retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Hello"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hello not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Hello"
+        ],
+        "summary": "Update Hello",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hello ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HelloUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hello updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Hello"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hello not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Hello"
+        ],
+        "summary": "Delete Hello",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hello ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hello deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Hello"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hello not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "title": {
+            "type": "string",
+            "description": "title field"
+          },
+          "subCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of subCategories references"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "CategoryCreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "title field"
+          },
+          "subCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of subCategories references"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        },
+        "required": []
+      },
+      "CategoryUpdate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "title field"
+          },
+          "subCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of subCategories references"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        }
+      },
+      "Job": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "companyName field"
+          },
+          "category": {
+            "type": "string",
+            "description": "category field"
+          },
+          "subCategory": {
+            "type": "string",
+            "description": "subCategory field"
+          },
+          "address": {
+            "type": "string",
+            "description": "address field"
+          },
+          "postDuration": {
+            "type": "string",
+            "enum": [],
+            "description": "postDuration field"
+          },
+          "availability": {
+            "type": "string",
+            "description": "availability field"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of images items"
+          },
+          "salary": {
+            "type": "object",
+            "description": "salary object"
+          },
+          "overview": {
+            "type": "string",
+            "description": "overview field"
+          },
+          "responsibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of responsibilities items"
+          },
+          "benifits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of benifits items"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "JobCreate": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "description": "companyName field"
+          },
+          "category": {
+            "type": "string",
+            "description": "category field"
+          },
+          "subCategory": {
+            "type": "string",
+            "description": "subCategory field"
+          },
+          "address": {
+            "type": "string",
+            "description": "address field"
+          },
+          "postDuration": {
+            "type": "string",
+            "enum": [],
+            "description": "postDuration field"
+          },
+          "availability": {
+            "type": "string",
+            "description": "availability field"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of images items"
+          },
+          "salary": {
+            "type": "object",
+            "description": "salary object"
+          },
+          "overview": {
+            "type": "string",
+            "description": "overview field"
+          },
+          "responsibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of responsibilities items"
+          },
+          "benifits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of benifits items"
+          }
+        },
+        "required": []
+      },
+      "JobUpdate": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "description": "companyName field"
+          },
+          "category": {
+            "type": "string",
+            "description": "category field"
+          },
+          "subCategory": {
+            "type": "string",
+            "description": "subCategory field"
+          },
+          "address": {
+            "type": "string",
+            "description": "address field"
+          },
+          "postDuration": {
+            "type": "string",
+            "enum": [],
+            "description": "postDuration field"
+          },
+          "availability": {
+            "type": "string",
+            "description": "availability field"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of images items"
+          },
+          "salary": {
+            "type": "object",
+            "description": "salary object"
+          },
+          "overview": {
+            "type": "string",
+            "description": "overview field"
+          },
+          "responsibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of responsibilities items"
+          },
+          "benifits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of benifits items"
+          }
+        }
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "requestedBy": {
+            "type": "string",
+            "description": "requestedBy reference ID"
+          },
+          "requestedTo": {
+            "type": "string",
+            "description": "requestedTo reference ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "BookingCreate": {
+        "type": "object",
+        "properties": {
+          "requestedBy": {
+            "type": "string",
+            "description": "requestedBy reference ID"
+          },
+          "requestedTo": {
+            "type": "string",
+            "description": "requestedTo reference ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        },
+        "required": []
+      },
+      "BookingUpdate": {
+        "type": "object",
+        "properties": {
+          "requestedBy": {
+            "type": "string",
+            "description": "requestedBy reference ID"
+          },
+          "requestedTo": {
+            "type": "string",
+            "description": "requestedTo reference ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        }
+      },
+      "Application": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "job": {
+            "type": "string",
+            "description": "job reference ID"
+          },
+          "employer": {
+            "type": "string",
+            "description": "employer reference ID"
+          },
+          "applicant": {
+            "type": "string",
+            "description": "applicant reference ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id",
+          "job"
+        ]
+      },
+      "ApplicationCreate": {
+        "type": "object",
+        "properties": {
+          "job": {
+            "type": "string",
+            "description": "job reference ID"
+          },
+          "employer": {
+            "type": "string",
+            "description": "employer reference ID"
+          },
+          "applicant": {
+            "type": "string",
+            "description": "applicant reference ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        },
+        "required": [
+          "job"
+        ]
+      },
+      "ApplicationUpdate": {
+        "type": "object",
+        "properties": {
+          "job": {
+            "type": "string",
+            "description": "job reference ID"
+          },
+          "employer": {
+            "type": "string",
+            "description": "employer reference ID"
+          },
+          "applicant": {
+            "type": "string",
+            "description": "applicant reference ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        }
+      },
+      "Chat": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of participants references"
+          },
+          "latestMessage": {
+            "type": "string",
+            "description": "latestMessage reference ID"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "ChatCreate": {
+        "type": "object",
+        "properties": {
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of participants references"
+          },
+          "latestMessage": {
+            "type": "string",
+            "description": "latestMessage reference ID"
+          }
+        },
+        "required": []
+      },
+      "ChatUpdate": {
+        "type": "object",
+        "properties": {
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of participants references"
+          },
+          "latestMessage": {
+            "type": "string",
+            "description": "latestMessage reference ID"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "chat": {
+            "type": "string",
+            "description": "chat reference ID"
+          },
+          "reciever": {
+            "type": "string",
+            "description": "reciever reference ID"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of files items"
+          },
+          "type": {
+            "type": "string",
+            "description": "type field"
+          },
+          "isRead": {
+            "type": "boolean",
+            "description": "isRead field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "MessageCreate": {
+        "type": "object",
+        "properties": {
+          "chat": {
+            "type": "string",
+            "description": "chat reference ID"
+          },
+          "reciever": {
+            "type": "string",
+            "description": "reciever reference ID"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of files items"
+          },
+          "type": {
+            "type": "string",
+            "description": "type field"
+          },
+          "isRead": {
+            "type": "boolean",
+            "description": "isRead field"
+          }
+        },
+        "required": []
+      },
+      "MessageUpdate": {
+        "type": "object",
+        "properties": {
+          "chat": {
+            "type": "string",
+            "description": "chat reference ID"
+          },
+          "reciever": {
+            "type": "string",
+            "description": "reciever reference ID"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of files items"
+          },
+          "type": {
+            "type": "string",
+            "description": "type field"
+          },
+          "isRead": {
+            "type": "boolean",
+            "description": "isRead field"
+          }
+        }
+      },
+      "Clientreview": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "image": {
+            "type": "string",
+            "description": "image field"
+          },
+          "name": {
+            "type": "string",
+            "description": "name field"
+          },
+          "designation": {
+            "type": "string",
+            "description": "designation field"
+          },
+          "description": {
+            "type": "string",
+            "description": "description field"
+          },
+          "rating": {
+            "type": "number",
+            "description": "rating field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "ClientreviewCreate": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "description": "image field"
+          },
+          "name": {
+            "type": "string",
+            "description": "name field"
+          },
+          "designation": {
+            "type": "string",
+            "description": "designation field"
+          },
+          "description": {
+            "type": "string",
+            "description": "description field"
+          },
+          "rating": {
+            "type": "number",
+            "description": "rating field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        },
+        "required": []
+      },
+      "ClientreviewUpdate": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "description": "image field"
+          },
+          "name": {
+            "type": "string",
+            "description": "name field"
+          },
+          "designation": {
+            "type": "string",
+            "description": "designation field"
+          },
+          "description": {
+            "type": "string",
+            "description": "description field"
+          },
+          "rating": {
+            "type": "number",
+            "description": "rating field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "createdAt field"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "updatedAt field"
+          }
+        }
+      },
+      "SkillItem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "title": {
+            "type": "string",
+            "description": "title field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "Hello": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB ObjectId"
+          },
+          "name": {
+            "type": "string",
+            "description": "name field"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "skill": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillItem"
+            },
+            "description": "Array of skill objects"
+          },
+          "description": {
+            "type": "string",
+            "description": "description field"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "_id"
+        ]
+      },
+      "HelloCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "name field"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "skill": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillItem"
+            },
+            "description": "Array of skill objects"
+          },
+          "description": {
+            "type": "string",
+            "description": "description field"
+          }
+        },
+        "required": []
+      },
+      "HelloUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "name field"
+          },
+          "status": {
+            "type": "string",
+            "description": "status field"
+          },
+          "skill": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkillItem"
+            },
+            "description": "Array of skill objects"
+          },
+          "description": {
+            "type": "string",
+            "description": "description field"
+          }
+        }
+      }
+    }
+  }
+}

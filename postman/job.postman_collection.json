@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "Job API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Job",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"companyName\": \"sample_companyName\",\n  \"category\": \"sample_category\",\n  \"subCategory\": \"sample_subCategory\",\n  \"address\": \"sample_address\",\n  \"postDuration\": \"sample_postDuration\",\n  \"availability\": \"sample_availability\",\n  \"images\": [\n    \"sample_images_item\"\n  ],\n  \"salary\": {\n    \"key\": \"value\"\n  },\n  \"overview\": \"sample_overview\",\n  \"responsibilities\": [\n    \"sample_responsibilities_item\"\n  ],\n  \"benifits\": [\n    \"sample_benifits_item\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/job",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "job"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Jobs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "job"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Job by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job/{{job_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "job",
+            "{{job_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Job",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"companyName\": \"sample_companyName\",\n  \"category\": \"sample_category\",\n  \"subCategory\": \"sample_subCategory\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/job/{{job_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "job",
+            "{{job_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Job",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job/{{job_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "job",
+            "{{job_id}}"
+          ]
+        }
+      }
+    }
+  ]
+}

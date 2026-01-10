@@ -1,0 +1,378 @@
+{
+    "info": {
+        "_postman_id": "katiem-subscription-package-api",
+        "name": "KatieM - Subscription & Package API",
+        "description": "API collection for Subscription and Package management in KatieM Server.\n\n## Authentication\nMost endpoints require Bearer token authentication. Add your JWT token in the Authorization header.\n\n## User Roles\n- **EMPLOYER**: Required for subscription endpoints\n- **ADMIN**: Required for package management endpoints (create, update, toggle, apply-discount)",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:5000/api/v1",
+            "type": "string"
+        },
+        {
+            "key": "authToken",
+            "value": "your_jwt_token_here",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "📦 Package",
+            "description": "Package management endpoints for subscription plans",
+            "item": [
+                {
+                    "name": "Get All Packages",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/package",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "package"
+                            ]
+                        },
+                        "description": "Get all available subscription packages.\n\n**Authentication**: Not required (Public endpoint)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Package",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"type\": \"Premium\",\n  \"regularPrice\": 29.99,\n  \"description\": \"Premium subscription plan with all features\",\n  \"isInstantBooking\": true,\n  \"interval\": \"month\",\n  \"limits\": {\n    \"jobPostLimit\": 50,\n    \"isJobPostLimitUnlimited\": false,\n    \"boostLimit\": 10,\n    \"isBoostLimitUnlimited\": false\n  },\n  \"currency\": \"usd\",\n  \"features\": [\n    \"Unlimited job views\",\n    \"Priority support\",\n    \"Analytics dashboard\"\n  ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/package",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "package"
+                            ]
+                        },
+                        "description": "Create a new subscription package.\n\n**Authentication**: Required (ADMIN role)\n\n**Required Fields**:\n- `type` (string): Package name/type\n- `regularPrice` (number): Price amount\n\n**Optional Fields**:\n- `description` (string): Package description\n- `isInstantBooking` (boolean): Enable instant booking\n- `interval` (string): \"month\" or \"year\"\n- `limits` (object): Job post and boost limits\n- `currency` (string): Currency code\n- `features` (array): List of feature strings"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Package",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"type\": \"Premium Plus\",\n  \"isInstantBooking\": true,\n  \"limits\": {\n    \"jobPostLimit\": 100,\n    \"isJobPostLimitUnlimited\": true,\n    \"boostLimit\": 20,\n    \"isBoostLimitUnlimited\": false\n  },\n  \"features\": [\n    \"Unlimited job views\",\n    \"Priority support\",\n    \"Analytics dashboard\",\n    \"API access\"\n  ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/package/:packageId",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "package",
+                                ":packageId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "packageId",
+                                    "value": "your_package_id_here",
+                                    "description": "The ID of the package to update"
+                                }
+                            ]
+                        },
+                        "description": "Update an existing package.\n\n**Authentication**: Required (ADMIN role)\n\n**All fields are optional**:\n- `type` (string): Package name/type\n- `isInstantBooking` (boolean): Enable instant booking\n- `limits` (object): Job post and boost limits\n- `features` (array): List of feature strings"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Toggle Package Status",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/package/toggle/:packageId",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "package",
+                                "toggle",
+                                ":packageId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "packageId",
+                                    "value": "your_package_id_here",
+                                    "description": "The ID of the package to toggle"
+                                }
+                            ]
+                        },
+                        "description": "Toggle a package's active/inactive status.\n\n**Authentication**: Required (ADMIN role)\n\n**URL Parameters**:\n- `packageId` (string): The package ID"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Apply Global Discount",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"percent_off\": 20\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/package/apply-discount",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "package",
+                                "apply-discount"
+                            ]
+                        },
+                        "description": "Apply a global discount to all packages.\n\n**Authentication**: Required (ADMIN role)\n\n**Required Fields**:\n- `percent_off` (number): Discount percentage (0-100)"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "💳 Subscription",
+            "description": "Subscription management endpoints for employers",
+            "item": [
+                {
+                    "name": "Create Checkout Session",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"packageId\": \"your_package_id_here\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/checkout",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "checkout"
+                            ]
+                        },
+                        "description": "Create a Stripe checkout session for a new subscription.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Required Fields**:\n- `packageId` (string): The ID of the package to subscribe to\n\n**Returns**: Stripe checkout session URL"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get My Subscription",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/my-subscription",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "my-subscription"
+                            ]
+                        },
+                        "description": "Get the current user's active subscription details.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Returns**: Current subscription information including status, plan details, and billing period"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Cancel Subscription",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"immediate\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/cancel",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "cancel"
+                            ]
+                        },
+                        "description": "Cancel the current subscription.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Optional Fields**:\n- `immediate` (boolean, default: false): If true, cancels immediately. If false, cancels at the end of the billing period."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Reactivate Subscription",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/reactivate",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "reactivate"
+                            ]
+                        },
+                        "description": "Reactivate a subscription that was scheduled for cancellation.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Note**: This only works if the subscription has not yet been cancelled. The subscription must still be in the 'cancel_at_period_end' state."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upgrade/Downgrade Subscription",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"packageId\": \"new_package_id_here\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/upgrade",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "upgrade"
+                            ]
+                        },
+                        "description": "Upgrade or downgrade to a different subscription plan.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Required Fields**:\n- `packageId` (string): The ID of the new package to switch to\n\n**Note**: Proration is applied immediately - the price difference is charged/credited immediately."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Invoices",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/invoices",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "invoices"
+                            ]
+                        },
+                        "description": "Get the list of invoices for the current user's subscription.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Returns**: List of Stripe invoices with payment status, amounts, and dates"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Billing Portal URL",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/subscription/billing-portal",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "subscription",
+                                "billing-portal"
+                            ]
+                        },
+                        "description": "Get a URL to the Stripe billing portal for self-service subscription management.\n\n**Authentication**: Required (EMPLOYER role)\n\n**Returns**: A URL that redirects the user to Stripe's billing portal where they can manage payment methods, view invoices, and cancel subscriptions."
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

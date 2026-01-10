@@ -1,0 +1,2 @@
+export const user_searchable_fields = ['email', 'name', 'phone', 'category', 'subCategory', 'address']
+export const user_filterable_fields = ['searchTerm', 'role', 'status', 'verified', 'category', 'minSalary', 'maxSalary', 'minRating', 'maxRating', 'radius', 'latitude', 'longitude', 'subCategory', 'salaryType']

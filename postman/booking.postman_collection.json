@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "Booking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Booking",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"requestedBy\": \"507f1f77bcf86cd799439011\",\n  \"requestedTo\": \"507f1f77bcf86cd799439011\",\n  \"status\": \"sample_status\",\n  \"createdAt\": \"2025-11-25T10:53:36.074Z\",\n  \"updatedAt\": \"2025-11-25T10:53:36.075Z\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/booking",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "booking"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Bookings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/booking",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "booking"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Booking by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/booking/{{booking_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "{{booking_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Booking",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"requestedBy\": \"507f1f77bcf86cd799439011\",\n  \"requestedTo\": \"507f1f77bcf86cd799439011\",\n  \"status\": \"sample_status\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/booking/{{booking_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "{{booking_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Booking",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/booking/{{booking_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "{{booking_id}}"
+          ]
+        }
+      }
+    }
+  ]
+}

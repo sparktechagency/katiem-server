@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Chat",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"participants\": [\n    \"507f1f77bcf86cd799439011\"\n  ],\n  \"latestMessage\": \"507f1f77bcf86cd799439011\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chat",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "chat"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Chats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/chat",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "chat"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Chat by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/chat/{{chat_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "chat",
+            "{{chat_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Chat",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"participants\": [\n    \"507f1f77bcf86cd799439011\"\n  ],\n  \"latestMessage\": \"507f1f77bcf86cd799439011\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chat/{{chat_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "chat",
+            "{{chat_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Chat",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/chat/{{chat_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "chat",
+            "{{chat_id}}"
+          ]
+        }
+      }
+    }
+  ]
+}

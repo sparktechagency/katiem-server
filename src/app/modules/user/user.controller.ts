@@ -1,0 +1,84 @@
+import { Request, Response, NextFunction } from 'express'
+
+import { StatusCodes } from 'http-status-codes'
+import catchAsync from '../../../shared/catchAsync'
+import sendResponse from '../../../shared/sendResponse'
+
+import { UserServices } from './user.service'
+import { ImageUploadPayload } from '../../../interfaces/shared'
+import { paginationFields } from '../../../interfaces/pagination'
+import pick from '../../../shared/pick'
+import { user_filterable_fields } from './user.constants'
+
+
+
+const updateProfile = catchAsync(async (req: Request, res: Response) => {
+  const { image, ...userData } = req.body
+  console.log(userData)
+  const result = await UserServices.updateProfile(req.user!, userData)
+  sendResponse<String>(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Profile updated successfully',
+    data: result,
+  })
+})
+
+const getWorkers = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.query)
+  const paginationOptions = pick(req.query, paginationFields)
+  const filterOptions = pick(req.query, user_filterable_fields)
+  const { user } = req
+  const result = await UserServices.getWorkers(user!, filterOptions, paginationOptions)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Workers retrieved successfully',
+    data: result,
+  })
+})
+
+
+
+const uploadImages = catchAsync(async (req: Request, res: Response) => {
+  const { images, type } = req.body as ImageUploadPayload
+  const result = await UserServices.uploadImages(req.user!, { images, type })
+  sendResponse<String>(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Images uploaded successfully',
+    data: result,
+  })
+})
+
+const getUserProfile = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserServices.getUserProfile(req.user!)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'User profile retrieved successfully',
+    data: result,
+  })
+})
+
+const getSingleWorker = catchAsync(async (req: Request, res: Response) => {
+  const workerId = req.params.workerId
+  const user = req.user
+  const result = await UserServices.getSingleWorker(user!, workerId)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Worker retrieved successfully',
+    data: result,
+  })
+})
+
+
+export const UserController = {
+  uploadImages,
+  getWorkers,
+  updateProfile,
+  getUserProfile,
+  getSingleWorker,
+
+}

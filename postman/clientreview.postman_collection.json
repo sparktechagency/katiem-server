@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "Clientreview API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Clientreview",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"image\": \"sample_image\",\n  \"name\": \"sample_name\",\n  \"designation\": \"sample_designation\",\n  \"description\": \"sample_description\",\n  \"rating\": 123,\n  \"createdAt\": \"2025-12-15T09:14:09.596Z\",\n  \"updatedAt\": \"2025-12-15T09:14:09.596Z\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientreview",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clientreview"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Clientreviews",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientreview",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clientreview"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Clientreview by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientreview/{{clientreview_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clientreview",
+            "{{clientreview_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Clientreview",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"image\": \"sample_image\",\n  \"name\": \"sample_name\",\n  \"designation\": \"sample_designation\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientreview/{{clientreview_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clientreview",
+            "{{clientreview_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Clientreview",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/clientreview/{{clientreview_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clientreview",
+            "{{clientreview_id}}"
+          ]
+        }
+      }
+    }
+  ]
+}
