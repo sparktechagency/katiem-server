@@ -2,6 +2,12 @@ import admin from "firebase-admin";
 import config from "../config";
 import { logger } from "../shared/logger";
 
+const isProd = process.env.NODE_ENV === 'production'
+
+if (isProd && !config.firebase_service_account_base64) {
+  throw new Error('Missing Firebase credentials in production')
+}
+
 const serviceAccountJson = Buffer.from(config.firebase_service_account_base64!, "base64").toString("utf8");
 const serviceAccount = JSON.parse(serviceAccountJson);
 
