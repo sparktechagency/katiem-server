@@ -125,6 +125,18 @@ const userSchema = new Schema<IUser, UserModel>(
       type: String,
       default: '',
     },
+    insuranceNumber: {
+      type: String,
+      default: '',
+    },
+    shareCode: {
+      type: String,
+      default: '',
+    },
+    dateOfBirth: {
+      type: Date,
+      default: null,
+    },
     isAccountVerified: {
       type: Boolean,
       default: false,

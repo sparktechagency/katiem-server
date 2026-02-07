@@ -23,8 +23,6 @@ type UpdateProfile = IUser & {
 }
 
 const updateProfile = async (user: JwtPayload, payload: Partial<UpdateProfile>) => {
-  // console.log(first)
-
   if (
     typeof payload.latitude === 'number' &&
     typeof payload.longitude === 'number'

@@ -99,6 +99,9 @@ export type IUser = {
   nid?: boolean
   nidFront?: string
   nidBack?: string
+  insuranceNumber?: string 
+  shareCode?: string
+  dateOfBirth?: Date
   isAccountVerified?: boolean
   //worker fields
   cover?: string
