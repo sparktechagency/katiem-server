@@ -68,6 +68,7 @@ export const updateUserZodSchema = z.object({
     insuranceNumber: z.string().optional(),
     shareCode: z.string().optional(),
     dateOfBirth: z.string().date().optional(),
+    isBritish: z.boolean().optional(),
     isAccountVerified: z.boolean().optional(),
 
     // Location
