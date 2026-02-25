@@ -15,7 +15,7 @@ const emailTemplate_1 = require("../../../shared/emailTemplate");
 const emailHelper_1 = require("../../../helpers/emailHelper");
 const notificationHelper_1 = require("../../../helpers/notificationHelper");
 const user_1 = require("../../../enum/user");
-const BASE_URL = 'https://asad.binarybards.online';
+const config_1 = __importDefault(require("../../../config"));
 /**
  * Create a Stripe checkout session for subscription
  */
@@ -48,8 +48,8 @@ const createCheckoutSession = async (userId, packageId, userEmail) => {
         customerId: stripeCustomer.id,
         priceId: packageData.stripePriceId,
         couponId: packageData.stripeCouponId || undefined,
-        successUrl: `${BASE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: `${BASE_URL}/subscription/cancel`,
+        successUrl: `${config_1.default.frontend_url}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${config_1.default.frontend_url}/subscription/cancel`,
         metadata: {
             userId,
             packageId,
@@ -429,7 +429,7 @@ const getBillingPortalUrl = async (userId) => {
     if (!subscription) {
         throw new ApiError_1.default(http_status_codes_1.StatusCodes.NOT_FOUND, 'No subscription found');
     }
-    const session = await stripe_service_1.stripeService.createBillingPortalSession(subscription.stripeCustomerId, `${BASE_URL}/subscription`);
+    const session = await stripe_service_1.stripeService.createBillingPortalSession(subscription.stripeCustomerId, `${config_1.default.frontend_url}/subscription`);
     return { url: session.url };
 };
 exports.subscriptionService = {
