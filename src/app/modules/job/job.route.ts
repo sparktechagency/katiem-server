@@ -20,6 +20,13 @@ router.get(
 )
 
 router.get(
+  '/my-posted-jobs',
+  auth(USER_ROLES.EMPLOYER),
+  validateRequest(JobValidations.getMyPostedJobs),
+  JobController.getMyPostedJobs,
+)
+
+router.get(
   '/:id',
   auth(
     USER_ROLES.ADMIN,
@@ -51,12 +58,7 @@ router.post(
   JobController.applyJob,
 )
 
-router.get(
-  '/my-posted-jobs',
-  auth(USER_ROLES.EMPLOYER),
-  validateRequest(JobValidations.getMyPostedJobs),
-  JobController.getMyPostedJobs,
-)
+
 
 router.post(
   '/boost/:id',
