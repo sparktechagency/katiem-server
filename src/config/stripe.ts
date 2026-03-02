@@ -6,7 +6,7 @@ if (!config.stripe_secret) {
 }
 
 export const stripe = new Stripe(config.stripe_secret as string, {
-    apiVersion: '2025-11-17.clover',
-    typescript: true,
-});
+  apiVersion: '2025-11-17.clover' as any,
+  typescript: true,
+})
 
