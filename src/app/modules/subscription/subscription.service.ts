@@ -56,7 +56,7 @@ const createCheckoutSession = async (
     customerId: stripeCustomer.id,
     priceId: packageData.stripePriceId,
     couponId: packageData.stripeCouponId || undefined,
-    successUrl: `${config.frontend_url}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
+    successUrl: `${config.frontend_url}/subscription?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: `${config.frontend_url}/subscription/cancel`,
     metadata: {
       userId,
