@@ -116,9 +116,9 @@ const applyJob = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getMyPostedJobs = catchAsync(async (req: Request, res: Response) => {
+
   const filterables = pick(req.query, jobFilterables);
   const pagination = pick(req.query, paginationFields);
-
   const result = await JobServices.getMyPostedJobs(
     req.user!,
     filterables,
