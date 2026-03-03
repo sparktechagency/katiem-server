@@ -41,7 +41,7 @@ const updateJob = catchAsync(async (req: Request, res: Response) => {
 
   const result = await JobServices.updateJob(
     req.user!,
-    id,
+    id as string,
     jobData
   );
 
@@ -55,7 +55,7 @@ const updateJob = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleJob = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await JobServices.getSingleJob(req.user!, id);
+  const result = await JobServices.getSingleJob(req.user!, id as string);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -88,7 +88,7 @@ const deleteJob = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await JobServices.deleteJob(
     req.user!,
-    id
+    id as string
   );
 
   sendResponse(res, {
@@ -104,7 +104,7 @@ const applyJob = catchAsync(async (req: Request, res: Response) => {
 
   const result = await JobServices.applyJob(
     req.user!,
-    id
+    id as string
   );
 
   sendResponse(res, {
@@ -137,7 +137,7 @@ const boostAJob = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await JobServices.boostAJob(
     req.user!,
-    id
+    id as string
   );
 
   sendResponse(res, {

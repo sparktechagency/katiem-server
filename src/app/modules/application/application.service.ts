@@ -86,12 +86,12 @@ const createApplication = async (
     )
   }
 
-  if (!isAccountVerified) {
-    throw new ApiError(
-      StatusCodes.BAD_REQUEST,
-      'Your account is not verified. Please verify your account to apply for jobs.',
-    )
-  }
+  // if (!isAccountVerified) {
+  //   throw new ApiError(
+  //     StatusCodes.BAD_REQUEST,
+  //     'Your account is not verified. Please verify your account to apply for jobs.',
+  //   )
+  // }
 
   if (isJobExist.isExpired) {
     throw new ApiError(
