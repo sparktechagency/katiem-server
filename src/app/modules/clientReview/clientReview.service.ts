@@ -50,10 +50,6 @@ const updateClientreview = async (
     },
   )
 
-  if (payload.image !== result?.image && result?.image) {
-    removeFile(result?.image)
-  }
-
   if (!result) {
     throw new ApiError(
       StatusCodes.NOT_FOUND,
