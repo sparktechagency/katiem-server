@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { ClientreviewModel, IClientreview } from './clientreview.interface';
+import { ClientreviewModel, IClientreview } from './clientReview.interface';
+
 
 
 const clientreviewSchema = new Schema<IClientreview, ClientreviewModel>({

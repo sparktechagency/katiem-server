@@ -6,7 +6,7 @@ import path from 'path'
 import fs from 'fs'
 import sharp from 'sharp'
 
-type IFolderName = 'images' | 'media' | 'documents'
+type IFolderName = 'images' | 'media' | 'documents' | 'image'
 interface ProcessedFiles {
   [key: string]: string | string[] | undefined
 }
@@ -16,6 +16,7 @@ const uploadFields = [
   { name: 'images', maxCount: 5 },
   { name: 'media', maxCount: 3 },
   { name: 'documents', maxCount: 3 },
+  { name: 'image', maxCount: 1 },
 ] as const
 
 export const fileAndBodyProcessor = () => {
@@ -35,7 +36,16 @@ export const fileAndBodyProcessor = () => {
       }
 
       const fieldType = file.fieldname as IFolderName
-      if (!allowedTypes[fieldType]?.includes(file.mimetype)) {
+      if (fieldType === 'image') {
+        if (!file.mimetype.startsWith('image/')) {
+          return cb(
+            new ApiError(
+              StatusCodes.BAD_REQUEST,
+              `Invalid file type for ${file.fieldname}. All image types are allowed.`,
+            ),
+          )
+        }
+      } else if (!(allowedTypes as any)[fieldType]?.includes(file.mimetype)) {
         return cb(
           new ApiError(
             StatusCodes.BAD_REQUEST,
@@ -177,7 +187,16 @@ export const fileAndBodyProcessorUsingDiskStorage = () => {
       }
 
       const fieldType = file.fieldname as IFolderName
-      if (!allowedTypes[fieldType]?.includes(file.mimetype)) {
+      if (fieldType === 'image') {
+        if (!file.mimetype.startsWith('image/')) {
+          return cb(
+            new ApiError(
+              StatusCodes.BAD_REQUEST,
+              `Invalid file type for ${file.fieldname}. All image types are allowed.`,
+            ),
+          )
+        }
+      } else if (!(allowedTypes as any)[fieldType]?.includes(file.mimetype)) {
         return cb(
           new ApiError(
             StatusCodes.BAD_REQUEST,
