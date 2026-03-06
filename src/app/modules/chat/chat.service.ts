@@ -147,8 +147,9 @@ const getSingleChat = async (id: string): Promise<any> => {
   }
 
   return {
-    ...result,
+    _id: result._id,
     participant,
+    latestMessage: result.latestMessage,
   }
 }
 
