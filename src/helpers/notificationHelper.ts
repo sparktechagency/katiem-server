@@ -51,9 +51,9 @@ export const sendNotification = async (
 
     emitEvent(`notification::${to}`, socketResponse)
 
-    if(deviceToken){
-     await sendPushNotification(deviceToken, title, { from: from.authId, to },body)
-    }
+    // if(deviceToken){
+    //  await sendPushNotification(deviceToken, title, { from: from.authId, to },body)
+    // }
   } catch (err) {
     //@ts-ignore
     logger.error(err, 'FROM NOTIFICATION HELPER')

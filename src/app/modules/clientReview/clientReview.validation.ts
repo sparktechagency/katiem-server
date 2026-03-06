@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const ClientreviewValidations = {
   create: z.object({
     body: z.object({
-      images: z.array(z.string({ required_error: 'Image is required' })),
+      image:z.string({ required_error: 'Image is required' }),
       name: z.string({ required_error: 'Name is required' }),
       designation: z.string({ required_error: 'Designation is required' }),
       description: z.string({ required_error: 'Description is required' }),
@@ -13,7 +13,7 @@ export const ClientreviewValidations = {
 
   update: z.object({
     body: z.object({
-      images: z.array(z.string()).optional(),
+      image: z.string().optional(),
       name: z.string().optional(),
       designation: z.string().optional(),
       description: z.string().optional(),

@@ -11,7 +11,7 @@ const createCheckoutSession = catchAsync(async (req: Request, res: Response) => 
     const userId = (req.user as JwtPayload).authId;
     const userEmail = (req.user as JwtPayload).email;
 
-    const result = await subscriptionService.createCheckoutSession(userId, packageId, userEmail);
+    const result = await subscriptionService.createCheckoutSession(userId, packageId as string, userEmail);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,

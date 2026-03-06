@@ -1,0 +1,73 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserController = void 0;
+const http_status_codes_1 = require("http-status-codes");
+const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const user_service_1 = require("./user.service");
+const pagination_1 = require("../../../interfaces/pagination");
+const pick_1 = __importDefault(require("../../../shared/pick"));
+const user_constants_1 = require("./user.constants");
+const updateProfile = (0, catchAsync_1.default)(async (req, res) => {
+    const { image, ...userData } = req.body;
+    const result = await user_service_1.UserServices.updateProfile(req.user, userData);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
+        success: true,
+        message: 'Profile updated successfully',
+        data: result,
+    });
+});
+const getWorkers = (0, catchAsync_1.default)(async (req, res) => {
+    console.log(req.query);
+    const paginationOptions = (0, pick_1.default)(req.query, pagination_1.paginationFields);
+    const filterOptions = (0, pick_1.default)(req.query, user_constants_1.user_filterable_fields);
+    const { user } = req;
+    const result = await user_service_1.UserServices.getWorkers(user, filterOptions, paginationOptions);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
+        success: true,
+        message: 'Workers retrieved successfully',
+        data: result,
+    });
+});
+const uploadImages = (0, catchAsync_1.default)(async (req, res) => {
+    const { images, type } = req.body;
+    const result = await user_service_1.UserServices.uploadImages(req.user, { images, type });
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
+        success: true,
+        message: 'Images uploaded successfully',
+        data: result,
+    });
+});
+const getUserProfile = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await user_service_1.UserServices.getUserProfile(req.user);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
+        success: true,
+        message: 'User profile retrieved successfully',
+        data: result,
+    });
+});
+const getSingleWorker = (0, catchAsync_1.default)(async (req, res) => {
+    const workerId = req.params.workerId;
+    const user = req.user;
+    const result = await user_service_1.UserServices.getSingleWorker(user, workerId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
+        success: true,
+        message: 'Worker retrieved successfully',
+        data: result,
+    });
+});
+exports.UserController = {
+    uploadImages,
+    getWorkers,
+    updateProfile,
+    getUserProfile,
+    getSingleWorker,
+};

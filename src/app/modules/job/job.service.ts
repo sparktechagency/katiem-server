@@ -352,14 +352,14 @@ const getMyPostedJobs = async (
 
   const [result, total] = await Promise.all([
     Job.find({
-      createdAtBy: new Types.ObjectId(user.authId),
+      createdBy: new Types.ObjectId(user.authId),
       ...whereConditions,
     })
       .skip(skip)
       .limit(limit)
       .sort({ [sortBy]: sortOrder }),
     Job.countDocuments({
-      createdAtBy: new Types.ObjectId(user.authId),
+      createdBy: new Types.ObjectId(user.authId),
       ...whereConditions,
     }),
   ])

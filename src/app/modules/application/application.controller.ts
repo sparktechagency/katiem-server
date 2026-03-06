@@ -12,7 +12,7 @@ const createApplication = catchAsync(async (req: Request, res: Response) => {
   
   const result = await ApplicationServices.createApplication(
     req.user!,
-    jobId
+    jobId as string
   );
 
   sendResponse(res, {
@@ -29,7 +29,7 @@ const updateApplication = catchAsync(async (req: Request, res: Response) => {
 
   const result = await ApplicationServices.updateApplication(
     req.user!,
-    id,
+    id as string,
     applicationData
   );
 
@@ -43,7 +43,7 @@ const updateApplication = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleApplication = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await ApplicationServices.getSingleApplication(req.user!, id);
+  const result = await ApplicationServices.getSingleApplication(req.user!, id as string);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -62,7 +62,7 @@ const getAllApplications = catchAsync(async (req: Request, res: Response) => {
     req.user!,
     filterables,
     pagination,
-    jobId
+    jobId as string
   );
 
   sendResponse(res, {
@@ -76,7 +76,7 @@ const getAllApplications = catchAsync(async (req: Request, res: Response) => {
 
 const deleteApplication = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await ApplicationServices.deleteApplication(req.user!, id);
+  const result = await ApplicationServices.deleteApplication(req.user!, id as string);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,

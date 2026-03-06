@@ -14,7 +14,7 @@ const createPackage = catchAsync(async (req, res) => {
 });
 
 const updatePackage = catchAsync(async (req, res) => {
-    const result = await packageService.updatePackage(req.params.packageId, req.body);
+    const result = await packageService.updatePackage(req.params.packageId as string, req.body);
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
@@ -24,7 +24,7 @@ const updatePackage = catchAsync(async (req, res) => {
 });
 
 const togglePackage = catchAsync(async (req, res) => {
-    const result = await packageService.togglePackage(req.params.packageId);
+    const result = await packageService.togglePackage(req.params.packageId as string);
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
@@ -75,7 +75,7 @@ const getOfferData = catchAsync(async (req, res) => {
     });
 });
 const deleteCoupon = catchAsync(async (req, res) => {
-    const result = await packageService.deleteCoupon(req.params.id);
+    const result = await packageService.deleteCoupon(req.params.id as string);
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,

@@ -14,7 +14,6 @@ import { user_filterable_fields } from './user.constants'
 
 const updateProfile = catchAsync(async (req: Request, res: Response) => {
   const { image, ...userData } = req.body
-  console.log(userData)
   const result = await UserServices.updateProfile(req.user!, userData)
   sendResponse<String>(res, {
     statusCode: StatusCodes.OK,

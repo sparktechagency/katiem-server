@@ -7,14 +7,11 @@ import { STRIPE_SUBSCRIPTION_STATUS } from './subscription.constants'
 import { User } from '../user/user.model'
 import { ISubscription } from './subscription.interface'
 import Stripe from 'stripe'
-import { Types } from 'mongoose'
-import { NotificationServices } from '../notifications/notifications.service'
 import { emailTemplate } from '../../../shared/emailTemplate'
 import { emailHelper } from '../../../helpers/emailHelper'
 import { sendNotification } from '../../../helpers/notificationHelper'
 import { USER_ROLES } from '../../../enum/user'
-
-const BASE_URL = 'https://asad.binarybards.online'
+import config from '../../../config'
 
 /**
  * Create a Stripe checkout session for subscription
@@ -59,8 +56,8 @@ const createCheckoutSession = async (
     customerId: stripeCustomer.id,
     priceId: packageData.stripePriceId,
     couponId: packageData.stripeCouponId || undefined,
-    successUrl: `${BASE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancelUrl: `${BASE_URL}/subscription/cancel`,
+    successUrl: `${config.frontend_url}/subscription?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: `${config.frontend_url}/subscription/cancel`,
     metadata: {
       userId,
       packageId,
@@ -284,9 +281,7 @@ const getUserSubscription = async (userId: string) => {
       ],
     },
   })
-    .select(
-      '-stripeCustomerId -stripeSubscriptionId',
-    )
+    .select('-stripeCustomerId -stripeSubscriptionId')
     .populate({
       path: 'userId',
       select:
@@ -552,7 +547,7 @@ const getBillingPortalUrl = async (userId: string) => {
 
   const session = await stripeService.createBillingPortalSession(
     subscription.stripeCustomerId,
-    `${BASE_URL}/subscription`,
+    `${config.frontend_url}/subscription`,
   )
 
   return { url: session.url }

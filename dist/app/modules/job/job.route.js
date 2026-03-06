@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.JobRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const job_controller_1 = require("./job.controller");
+const job_validation_1 = require("./job.validation");
+const validateRequest_1 = __importDefault(require("../../middleware/validateRequest"));
+const auth_1 = __importDefault(require("../../middleware/auth"));
+const user_1 = require("../../../enum/user");
+const processReqBody_1 = require("../../middleware/processReqBody");
+const router = express_1.default.Router();
+router.get('/', (0, auth_1.default)(user_1.USER_ROLES.ADMIN, user_1.USER_ROLES.EMPLOYER, user_1.USER_ROLES.WORKER, user_1.USER_ROLES.GUEST), job_controller_1.JobController.getAllJobs);
+router.get('/:id', (0, auth_1.default)(user_1.USER_ROLES.ADMIN, user_1.USER_ROLES.EMPLOYER, user_1.USER_ROLES.WORKER, user_1.USER_ROLES.GUEST), job_controller_1.JobController.getSingleJob);
+router.post('/', (0, auth_1.default)(user_1.USER_ROLES.EMPLOYER), (0, processReqBody_1.fileAndBodyProcessorUsingDiskStorage)(), (0, validateRequest_1.default)(job_validation_1.JobValidations.create), job_controller_1.JobController.createJob);
+router.patch('/:id', (0, auth_1.default)(user_1.USER_ROLES.EMPLOYER), (0, processReqBody_1.fileAndBodyProcessorUsingDiskStorage)(), (0, validateRequest_1.default)(job_validation_1.JobValidations.update), job_controller_1.JobController.updateJob);
+router.post('/:id/apply', (0, auth_1.default)(user_1.USER_ROLES.WORKER), (0, validateRequest_1.default)(job_validation_1.JobValidations.apply), job_controller_1.JobController.applyJob);
+router.get('/my-posted-jobs', (0, auth_1.default)(user_1.USER_ROLES.EMPLOYER), (0, validateRequest_1.default)(job_validation_1.JobValidations.getMyPostedJobs), job_controller_1.JobController.getMyPostedJobs);
+router.post('/boost/:id', (0, auth_1.default)(user_1.USER_ROLES.EMPLOYER), (0, validateRequest_1.default)(job_validation_1.JobValidations.boost), job_controller_1.JobController.boostAJob);
+router.delete('/:id', (0, auth_1.default)(user_1.USER_ROLES.EMPLOYER), (0, validateRequest_1.default)(job_validation_1.JobValidations.delete), job_controller_1.JobController.deleteJob);
+exports.JobRoutes = router;

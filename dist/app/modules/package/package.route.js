@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PackageRoutes = void 0;
+const express_1 = require("express");
+const package_controller_1 = require("./package.controller");
+const auth_1 = __importDefault(require("../../middleware/auth"));
+const user_1 = require("../../../enum/user");
+const validateRequest_1 = __importDefault(require("../../middleware/validateRequest"));
+const package_validation_1 = require("./package.validation");
+const router = (0, express_1.Router)();
+router.get('/', package_controller_1.PackageController.getPackages);
+router.post('/', (0, auth_1.default)(user_1.USER_ROLES.ADMIN), (0, validateRequest_1.default)(package_validation_1.packageValidationSchema.createPackageValidationSchema), package_controller_1.PackageController.createPackage);
+router.post('/toggle/:packageId', (0, auth_1.default)(user_1.USER_ROLES.ADMIN), (0, validateRequest_1.default)(package_validation_1.packageValidationSchema.togglePackageValidationSchema), package_controller_1.PackageController.togglePackage);
+router.get('/coupon', (0, auth_1.default)(user_1.USER_ROLES.ADMIN), package_controller_1.PackageController.getCoupon);
+router.get('/offer-data', (0, auth_1.default)(user_1.USER_ROLES.GUEST, user_1.USER_ROLES.EMPLOYER), package_controller_1.PackageController.getOfferData);
+router.patch('/:packageId', (0, auth_1.default)(user_1.USER_ROLES.ADMIN), (0, validateRequest_1.default)(package_validation_1.packageValidationSchema.updatePackageValidationSchema), package_controller_1.PackageController.updatePackage);
+router.post('/apply-discount', (0, auth_1.default)(user_1.USER_ROLES.ADMIN), (0, validateRequest_1.default)(package_validation_1.packageValidationSchema.applyDiscountValidationSchema), package_controller_1.PackageController.applyDiscount);
+router.delete('/coupon/:id', (0, auth_1.default)(user_1.USER_ROLES.ADMIN), package_controller_1.PackageController.deleteCoupon);
+exports.PackageRoutes = router;
