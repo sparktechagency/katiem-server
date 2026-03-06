@@ -32,6 +32,12 @@ router.get(
 
 
 
+router.get(
+  '/:id',
+  auth(USER_ROLES.EMPLOYER, USER_ROLES.WORKER),
+  ChatController.getSingleChat
+);
+
 // router.delete(
 //   '/:id',
 //   auth(

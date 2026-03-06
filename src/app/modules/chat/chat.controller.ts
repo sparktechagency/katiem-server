@@ -39,6 +39,18 @@ const getAllChats = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleChat = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await ChatServices.getSingleChat(id);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Chat retrieved successfully',
+    data: result,
+  });
+});
+
 const deleteChat = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await ChatServices.deleteChat(id);
@@ -54,5 +66,6 @@ const deleteChat = catchAsync(async (req: Request, res: Response) => {
 export const ChatController = {
   createChat,
   getAllChats,
+  getSingleChat,
   deleteChat,
 };
