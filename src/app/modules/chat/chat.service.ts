@@ -125,12 +125,20 @@ const getAllChats = async (user: JwtPayload) => {
   return formattedChat
 }
 
-const getSingleChat = async (id: string): Promise<IChat> => {
+const getSingleChat = async (id: string): Promise<any> => {
   if (!Types.ObjectId.isValid(id)) {
     throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid Chat ID')
   }
 
-  const result = await Chat.findById(id)
+  const result: any = await Chat.findById(id)
+    .populate('participants')
+    .populate('latestMessage')
+    .lean()
+
+  const participant = result.participants.find(
+    p => p._id.toString() !== id.toString(),
+  )
+
   if (!result) {
     throw new ApiError(
       StatusCodes.NOT_FOUND,
@@ -138,7 +146,10 @@ const getSingleChat = async (id: string): Promise<IChat> => {
     )
   }
 
-  return result
+  return {
+    ...result,
+    participant,
+  }
 }
 
 const deleteChat = async (id: string): Promise<IChat> => {
