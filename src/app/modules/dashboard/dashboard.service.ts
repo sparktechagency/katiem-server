@@ -25,11 +25,11 @@ const getGeneralStats = async () => {
     }
 }
 
-const getUsers = async ( filters: IUserFilterableFields,pagination: IPaginationOptions) => {
+const getUsers = async (filters: IUserFilterableFields, pagination: IPaginationOptions) => {
     const { page, limit, sortOrder, sortBy, skip } = paginationHelper.calculatePagination(pagination)
     const { searchTerm, ...otherFilters } = filters
 
-    const andConditions = []
+    const andConditions: any[] = []
     andConditions.push({ role: { $in: ['employer', 'worker'] } })
     if (searchTerm) {
         andConditions.push({
