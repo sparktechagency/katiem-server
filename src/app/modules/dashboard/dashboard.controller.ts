@@ -34,7 +34,7 @@ const getUsers = catchAsync(async (req: Request, res: Response) => {
 
 const blockUnblockUser = catchAsync(async (req: Request, res: Response) => {
     const { userId } = req.params;
-    const result = await dashboardService.blockUnblockUser(userId);
+    const result = await dashboardService.blockUnblockUser(userId as string);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
@@ -46,7 +46,7 @@ const blockUnblockUser = catchAsync(async (req: Request, res: Response) => {
 
 const toggleUserVerification = catchAsync(async (req: Request, res: Response) => {
     const { userId } = req.params;
-    const result = await dashboardService.toggleUserVerification(userId);
+    const result = await dashboardService.toggleUserVerification(userId as string);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
@@ -112,7 +112,7 @@ const getMonthlyUserCounts = catchAsync(async (req: Request, res: Response) => {
  */
 const getUserDetails = catchAsync(async (req: Request, res: Response) => {
     const { userId } = req.params;
-    const result = await dashboardService.getUserDetails(userId);
+    const result = await dashboardService.getUserDetails(userId as string);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,

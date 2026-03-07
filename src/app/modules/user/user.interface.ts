@@ -104,6 +104,10 @@ export type IUser = {
   dateOfBirth?: Date
   isBritish?: boolean
   isAccountVerified?: boolean
+  employerType?: string
+  businessName?: string
+  companyName?: string
+  registradAddress?: string
   //worker fields
   cover?: string
   category?: string

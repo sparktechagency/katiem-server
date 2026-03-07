@@ -63,7 +63,7 @@ const getUserProfile = catchAsync(async (req: Request, res: Response) => {
 const getSingleWorker = catchAsync(async (req: Request, res: Response) => {
   const workerId = req.params.workerId
   const user = req.user
-  const result = await UserServices.getSingleWorker(user!, workerId)
+  const result = await UserServices.getSingleWorker(user!, workerId as string)
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,

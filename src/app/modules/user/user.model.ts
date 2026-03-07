@@ -145,6 +145,22 @@ const userSchema = new Schema<IUser, UserModel>(
       type: Boolean,
       default: false,
     },
+    employerType: {
+      type: String,
+      default: '',
+    },
+    businessName: {
+      type: String,
+      default: '',
+    },
+    companyName: {
+      type: String,
+      default: '',
+    },
+    registradAddress: {
+      type: String,
+      default: '',
+    },
 
     // 🔹 Worker fields
     category: {

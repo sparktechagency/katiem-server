@@ -6,7 +6,7 @@ import path from 'path'
 import fs from 'fs'
 import sharp from 'sharp'
 
-type IFolderName = 'images' | 'media' | 'documents' | 'image'
+type IFolderName = 'images' | 'media' | 'documents' | 'image' | 'nidFront' | 'nidBack'
 interface ProcessedFiles {
   [key: string]: string | string[] | undefined
 }
@@ -17,6 +17,8 @@ const uploadFields = [
   { name: 'media', maxCount: 3 },
   { name: 'documents', maxCount: 3 },
   { name: 'image', maxCount: 1 },
+  { name: 'nidFront', maxCount: 1 },
+  { name: 'nidBack', maxCount: 1 },
 ] as const
 
 export const fileAndBodyProcessor = () => {
@@ -36,7 +38,11 @@ export const fileAndBodyProcessor = () => {
       }
 
       const fieldType = file.fieldname as IFolderName
-      if (fieldType === 'image') {
+      if (
+        fieldType === 'image' ||
+        fieldType === 'nidFront' ||
+        fieldType === 'nidBack'
+      ) {
         if (!file.mimetype.startsWith('image/')) {
           return cb(
             new ApiError(
@@ -103,7 +109,12 @@ export const fileAndBodyProcessor = () => {
               const filePath = `/${fieldName}/${filename}`
 
               // Apply Sharp optimization for images
-              if (fieldName === 'image' && file.mimetype.startsWith('image/')) {
+              if (
+                (fieldName === 'image' ||
+                  fieldName === 'nidFront' ||
+                  fieldName === 'nidBack') &&
+                file.mimetype.startsWith('image/')
+              ) {
                 try {
                   // Create Sharp instance
                   let sharpInstance = sharp(file.buffer).resize(800)
@@ -187,7 +198,11 @@ export const fileAndBodyProcessorUsingDiskStorage = () => {
       }
 
       const fieldType = file.fieldname as IFolderName
-      if (fieldType === 'image') {
+      if (
+        fieldType === 'image' ||
+        fieldType === 'nidFront' ||
+        fieldType === 'nidBack'
+      ) {
         if (!file.mimetype.startsWith('image/')) {
           return cb(
             new ApiError(
@@ -255,7 +270,12 @@ export const fileAndBodyProcessorUsingDiskStorage = () => {
               const filePath = `/${fieldName}/${file.filename}`
 
               // Apply Sharp optimization for images
-              if (fieldName === 'image' && file.mimetype.startsWith('image/')) {
+              if (
+                (fieldName === 'image' ||
+                  fieldName === 'nidFront' ||
+                  fieldName === 'nidBack') &&
+                file.mimetype.startsWith('image/')
+              ) {
                 try {
                   const fullPath = path.join(
                     uploadsDir,

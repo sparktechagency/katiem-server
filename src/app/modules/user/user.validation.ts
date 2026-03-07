@@ -70,6 +70,10 @@ export const updateUserZodSchema = z.object({
     dateOfBirth: z.string().date().optional(),
     isBritish: z.boolean().optional(),
     isAccountVerified: z.boolean().optional(),
+    employerType: z.string().optional(),
+    businessName: z.string().optional(),
+    companyName: z.string().optional(),
+    registradAddress: z.string().optional(),
 
     // Location
     location: z
