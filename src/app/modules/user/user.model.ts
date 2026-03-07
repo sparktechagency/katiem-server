@@ -153,11 +153,11 @@ const userSchema = new Schema<IUser, UserModel>(
       type: String,
       default: '',
     },
-    companyName: {
+    companyNumber: {
       type: String,
       default: '',
     },
-    registradAddress: {
+    registeredAddress: {
       type: String,
       default: '',
     },

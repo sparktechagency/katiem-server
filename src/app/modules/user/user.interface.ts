@@ -106,8 +106,8 @@ export type IUser = {
   isAccountVerified?: boolean
   employerType?: string
   businessName?: string
-  companyName?: string
-  registradAddress?: string
+  companyNumber?: string
+  registeredAddress?: string
   //worker fields
   cover?: string
   category?: string

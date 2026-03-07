@@ -72,8 +72,8 @@ export const updateUserZodSchema = z.object({
     isAccountVerified: z.boolean().optional(),
     employerType: z.string().optional(),
     businessName: z.string().optional(),
-    companyName: z.string().optional(),
-    registradAddress: z.string().optional(),
+    companyNumber: z.string().optional(),
+    registeredAddress: z.string().optional(),
 
     // Location
     location: z
