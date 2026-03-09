@@ -110,28 +110,30 @@ const getAllJobs = async (
     }
   }
 
-  // Geolocation filtering
-  let searchLatitude = latitude
-  let searchLongitude = longitude
-  let searchRadius = radius
+  // Geolocation filtering logic
+  let finalLat: number | undefined = latitude
+  let finalLng: number | undefined = longitude
+  let finalRadius: number = radius || 100 // Default 100km if not provided by frontend
 
-  if (searchLatitude === undefined || searchLongitude === undefined) {
+  // If frontend didn't provide lat/lng, fetch from profile
+  if (latitude === undefined || longitude === undefined) {
     const currentUser = await User.findById(user.authId).select('location').lean()
     if (currentUser?.location?.coordinates) {
-      searchLongitude = searchLongitude ?? currentUser.location.coordinates[0]
-      searchLatitude = searchLatitude ?? currentUser.location.coordinates[1]
+      finalLng = currentUser.location.coordinates[0]
+      finalLat = currentUser.location.coordinates[1]
     }
   }
 
-  if (searchLatitude !== undefined && searchLongitude !== undefined) {
+  // Apply filter ONLY if we successfully resolved coordinates (either from frontend or profile)
+  if (finalLat !== undefined && finalLng !== undefined) {
     andConditions.push({
       location: {
         $near: {
           $geometry: {
             type: 'Point',
-            coordinates: [Number(searchLongitude), Number(searchLatitude)],
+            coordinates: [Number(finalLng), Number(finalLat)],
           },
-          $maxDistance: (Number(searchRadius) || 100) * 1000,
+          $maxDistance: Number(finalRadius) * 1000, // Convert km to meters
         },
       },
     })
