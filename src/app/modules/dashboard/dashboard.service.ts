@@ -30,7 +30,7 @@ const getUsers = async (filters: IUserFilterableFields, pagination: IPaginationO
     const { searchTerm, ...otherFilters } = filters
 
     const andConditions: any[] = []
-    andConditions.push({ role: { $in: ['employer', 'worker'] } })
+    andConditions.push({ role: { $in: ['employer', 'worker'] }, status: { $ne: USER_STATUS.DELETED } })
     if (searchTerm) {
         andConditions.push({
             $or: user_searchable_fields.map(field => ({ [field]: { $regex: searchTerm, $options: 'i' } }))

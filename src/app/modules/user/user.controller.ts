@@ -72,6 +72,17 @@ const getSingleWorker = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.params.userId
+  const result = await UserServices.deleteUser(userId as string)
+  sendResponse<String>(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'User deleted successfully',
+    data: result,
+  })
+})
+
 
 export const UserController = {
   uploadImages,
@@ -79,5 +90,6 @@ export const UserController = {
   updateProfile,
   getUserProfile,
   getSingleWorker,
+  deleteUser
 
 }

@@ -68,6 +68,14 @@ router.get(
   UserController.getSingleWorker,
 )
 
+router.delete(
+  '/:userId',
+  auth(
+    USER_ROLES.ADMIN,
+  ),
+  UserController.deleteUser,
+)
+
 
 
 export const UserRoutes = router

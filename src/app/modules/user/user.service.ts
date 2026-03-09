@@ -163,6 +163,7 @@ const getWorkers = async (
 
   andConditions.push({
     role: USER_ROLES.WORKER,
+    status: { $nin: [USER_STATUS.DELETED] },
   })
   const whereConditions =
     andConditions.length > 0 ? { $and: andConditions } : {}
@@ -273,6 +274,20 @@ const getSingleWorker = async (user: JwtPayload, workerId: string) => {
   return worker
 }
 
+const deleteUser = async (userId: string) => {
+  const userExist = await User.findById(userId)
+  if (!userExist) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'The requested user not found.')
+  }
+  const updatedUser = await User.findByIdAndUpdate(userId, { status: USER_STATUS.DELETED }, {
+    new: false,
+  })
+  if (!updatedUser) {
+    throw new ApiError(StatusCodes.BAD_REQUEST, 'Failed to delete user.')
+  }
+  return 'User deleted successfully.'
+}
+
 export const UserServices = {
   updateProfile,
   createAdmin,
@@ -280,4 +295,5 @@ export const UserServices = {
   getWorkers,
   getUserProfile,
   getSingleWorker,
+  deleteUser
 }
