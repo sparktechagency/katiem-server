@@ -11,8 +11,8 @@ import { USER_STATUS } from "../../../enum/user"
 
 const getGeneralStats = async () => {
     const [totalEmployers, totalWorkers, totalSubscription, totalRevenue] = await Promise.all([
-        User.countDocuments({ role: 'employer' }),
-        User.countDocuments({ role: 'worker' }),
+        User.countDocuments({ role: 'employer', status: { $ne: USER_STATUS.DELETED } }),
+        User.countDocuments({ role: 'worker', status: { $ne: USER_STATUS.DELETED } }),
         Subscription.countDocuments(),
         stripeService.getPlatformRevenue()
     ])
