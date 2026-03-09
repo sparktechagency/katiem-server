@@ -43,7 +43,7 @@ router.get(
     USER_ROLES.EMPLOYER,
     USER_ROLES.GUEST,
   ),
-  // validateRequest(UserValidations.getWorkersZodSchema),
+  validateRequest(UserValidations.getWorkersZodSchema),
   UserController.getWorkers,
 )
 

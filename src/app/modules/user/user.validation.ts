@@ -105,7 +105,7 @@ const getWorkersZodSchema = z.object({
       .enum([
         USER_ROLES.EMPLOYER,
         USER_ROLES.WORKER,
-        USER_ROLES.EMPLOYER,
+        USER_ROLES.ADMIN,
         USER_ROLES.GUEST,
       ])
       .optional(),
@@ -117,10 +117,18 @@ const getWorkersZodSchema = z.object({
       .refine(value => value === 'true' || value === 'false', {
         message: 'Verified must be either true or false',
       })
+      .transform(value => value === 'true')
       .optional(),
     category: z.string().optional(),
     subCategory: z.string().optional(),
     address: z.string().optional(),
+    minSalary: z.string().transform(val => Number(val)).optional(),
+    maxSalary: z.string().transform(val => Number(val)).optional(),
+    minRating: z.string().transform(val => Number(val)).optional(),
+    maxRating: z.string().transform(val => Number(val)).optional(),
+    latitude: z.string().transform(val => Number(val)).optional(),
+    longitude: z.string().transform(val => Number(val)).optional(),
+    radius: z.string().transform(val => Number(val)).optional(),
   }),
 })
 

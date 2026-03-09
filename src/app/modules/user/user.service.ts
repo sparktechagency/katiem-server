@@ -99,38 +99,74 @@ const getWorkers = async (
   } = filters
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(paginationOptions)
-  const andConditions = []
+  const andConditions: any[] = []
 
-  if (minSalary || maxSalary) {
-    andConditions.push({
-      salary: {
-        $gte: Number(minSalary) || 0,
-        $lte: Number(maxSalary) || Number.MAX_SAFE_INTEGER,
-      },
-    })
+  // Role and status conditions
+  andConditions.push({
+    role: USER_ROLES.WORKER,
+    status: { $nin: [USER_STATUS.DELETED] },
+  })
+
+  // Salary range filtering
+  if (minSalary !== undefined || maxSalary !== undefined) {
+    const salaryCondition: any = {}
+    if (minSalary !== undefined && minSalary !== null) {
+      salaryCondition['$gte'] = Number(minSalary)
+    }
+    if (maxSalary !== undefined && maxSalary !== null) {
+      salaryCondition['$lte'] = Number(maxSalary)
+    }
+
+    if (Object.keys(salaryCondition).length > 0) {
+      andConditions.push({ salary: salaryCondition })
+    }
   }
-  if (minRating || maxRating) {
-    andConditions.push({
-      rating: {
-        $gte: Number(minRating) || 0,
-        $lte: Number(maxRating) || Number.MAX_SAFE_INTEGER,
-      },
-    })
+
+  // Rating range filtering
+  if (minRating !== undefined || maxRating !== undefined) {
+    const ratingCondition: any = {}
+    if (minRating !== undefined && minRating !== null) {
+      ratingCondition['$gte'] = Number(minRating)
+    }
+    if (maxRating !== undefined && maxRating !== null) {
+      ratingCondition['$lte'] = Number(maxRating)
+    }
+
+    if (Object.keys(ratingCondition).length > 0) {
+      andConditions.push({ rating: ratingCondition })
+    }
   }
-  if (latitude && longitude && radius) {
+
+  // Geospatial filtering logic
+  let searchLatitude = latitude
+  let searchLongitude = longitude
+  let searchRadius = radius
+
+  // If no coordinates provided by frontend, fallback to user profile location
+  if (searchLatitude === undefined || searchLongitude === undefined) {
+    const currentUser = await User.findById(user.authId).select('location').lean()
+    if (currentUser?.location?.coordinates) {
+      searchLongitude = searchLongitude ?? currentUser.location.coordinates[0]
+      searchLatitude = searchLatitude ?? currentUser.location.coordinates[1]
+    }
+  }
+
+  // If we have coordinates (either from frontend or profile), apply the filter
+  if (searchLatitude !== undefined && searchLongitude !== undefined) {
     andConditions.push({
       location: {
         $near: {
           $geometry: {
             type: 'Point',
-            coordinates: [Number(longitude) || 0, Number(latitude) || 0],
+            coordinates: [Number(searchLongitude), Number(searchLatitude)],
           },
-          $maxDistance: Number(radius) || 10000, //10km max
+          $maxDistance: (Number(searchRadius) || 100) * 1000,
         },
       },
     })
   }
 
+  // Search term filtering
   if (searchTerm) {
     andConditions.push({
       $or: user_searchable_fields.map(field => ({
@@ -142,29 +178,19 @@ const getWorkers = async (
     })
   }
 
-  const sanitizedFilterData = Object.fromEntries(
-    Object.entries(filterData).filter(
-      ([_, value]) =>
-        value !== undefined &&
-        value !== null &&
-        value !== '' &&
-        !(Array.isArray(value) && value.length === 0)
-    )
-  );
+  // Other filterable fields
+  const filteredEntries = Object.entries(filterData).filter(
+    ([_, value]) => value !== undefined && value !== null && value !== ''
+  )
 
-
-  if (Object.keys(sanitizedFilterData).length) {
+  if (filteredEntries.length > 0) {
     andConditions.push({
-      $and: Object.entries(sanitizedFilterData).map(([key, value]) => ({
+      $and: filteredEntries.map(([key, value]) => ({
         [key]: value,
       })),
-    });
+    })
   }
 
-  andConditions.push({
-    role: USER_ROLES.WORKER,
-    status: { $nin: [USER_STATUS.DELETED] },
-  })
   const whereConditions =
     andConditions.length > 0 ? { $and: andConditions } : {}
 
@@ -224,8 +250,8 @@ const uploadImages = async (user: JwtPayload, payload: ImageUploadPayload) => {
     )
   }
 
-  if (updatedUser[type]) {
-    await removeFile(updatedUser[type])
+  if (updatedUser && (updatedUser as any)[type]) {
+    await removeFile((updatedUser as any)[type])
   }
 
   return 'Images uploaded successfully.'

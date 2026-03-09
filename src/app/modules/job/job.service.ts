@@ -62,6 +62,7 @@ const createJob = async (userPayload: JwtPayload, payload: CreateJobPayload) => 
 }
 
 const getAllJobs = async (
+  user: JwtPayload,
   filterables: IJobFilterables,
   pagination: IPaginationOptions,
 ) => {
@@ -79,35 +80,58 @@ const getAllJobs = async (
   const { page, skip, limit, sortBy, sortOrder } =
     paginationHelper.calculatePagination(pagination)
 
-  const andConditions = []
+  const andConditions: any[] = []
 
-  if (minRating || maxRating) {
-    andConditions.push({
-      rating: {
-        $gte: minRating || 0,
-        $lte: maxRating || Number.MAX_SAFE_INTEGER,
-      },
-    })
+  // Salary range filtering
+  if (minSalary !== undefined || maxSalary !== undefined) {
+    const salaryCondition: any = {}
+    if (minSalary !== undefined && minSalary !== null) {
+      salaryCondition['$gte'] = Number(minSalary)
+    }
+    if (maxSalary !== undefined && maxSalary !== null) {
+      salaryCondition['$lte'] = Number(maxSalary)
+    }
+    if (Object.keys(salaryCondition).length > 0) {
+      andConditions.push({ salary: salaryCondition })
+    }
   }
 
-  if (minSalary || maxSalary) {
-    andConditions.push({
-      salary: {
-        $gte: Number(minSalary) || 0,
-        $lte: Number(maxSalary) || Number.MAX_SAFE_INTEGER,
-      },
-    })
+  // Rating range filtering
+  if (minRating !== undefined || maxRating !== undefined) {
+    const ratingCondition: any = {}
+    if (minRating !== undefined && minRating !== null) {
+      ratingCondition['$gte'] = Number(minRating)
+    }
+    if (maxRating !== undefined && maxRating !== null) {
+      ratingCondition['$lte'] = Number(maxRating)
+    }
+    if (Object.keys(ratingCondition).length > 0) {
+      andConditions.push({ rating: ratingCondition })
+    }
   }
 
-  if (latitude && longitude && radius) {
+  // Geolocation filtering
+  let searchLatitude = latitude
+  let searchLongitude = longitude
+  let searchRadius = radius
+
+  if (searchLatitude === undefined || searchLongitude === undefined) {
+    const currentUser = await User.findById(user.authId).select('location').lean()
+    if (currentUser?.location?.coordinates) {
+      searchLongitude = searchLongitude ?? currentUser.location.coordinates[0]
+      searchLatitude = searchLatitude ?? currentUser.location.coordinates[1]
+    }
+  }
+
+  if (searchLatitude !== undefined && searchLongitude !== undefined) {
     andConditions.push({
-      address: {
+      location: {
         $near: {
           $geometry: {
             type: 'Point',
-            coordinates: [Number(longitude), Number(latitude)],
+            coordinates: [Number(searchLongitude), Number(searchLatitude)],
           },
-          $maxDistance: Number(radius) || 10000, // 10km radius
+          $maxDistance: (Number(searchRadius) || 100) * 1000,
         },
       },
     })
@@ -125,25 +149,18 @@ const getAllJobs = async (
     })
   }
 
-  const sanitizedFilterData = Object.fromEntries(
-    Object.entries(filterData).filter(
-      ([_, value]) =>
-        value !== undefined &&
-        value !== null &&
-        value !== '' &&
-        !(Array.isArray(value) && value.length === 0)
-    )
-  );
-
   // Filter functionality
-  if (Object.keys(sanitizedFilterData).length) {
+  const filteredEntries = Object.entries(filterData).filter(
+    ([_, value]) => value !== undefined && value !== null && value !== ''
+  )
+
+  if (filteredEntries.length > 0) {
     andConditions.push({
-      $and: Object.entries(sanitizedFilterData).map(([key, value]) => ({
+      $and: filteredEntries.map(([key, value]) => ({
         [key]: value,
       })),
-    });
+    })
   }
-
 
   const whereConditions = andConditions.length ? { $and: andConditions } : {}
 
@@ -152,7 +169,7 @@ const getAllJobs = async (
       .populate('createdBy')
       .skip(skip)
       .limit(limit)
-      .sort({ [sortBy]: sortOrder })
+      .sort({ [sortBy]: sortOrder === 'desc' ? -1 : 1 })
       .lean(),
     Job.countDocuments(whereConditions),
   ])
@@ -325,7 +342,10 @@ const getMyPostedJobs = async (
 
   const { searchTerm, ...filterData } = filterables
 
-  const andConditions = []
+  const andConditions: any[] = []
+
+  // Add createdBy condition
+  andConditions.push({ createdBy: new Types.ObjectId(user.authId) })
 
   // Search functionality
   if (searchTerm) {
@@ -340,9 +360,13 @@ const getMyPostedJobs = async (
   }
 
   // Filter functionality
-  if (Object.keys(filterData).length) {
+  const filteredEntries = Object.entries(filterData).filter(
+    ([_, value]) => value !== undefined && value !== null && value !== ''
+  )
+
+  if (filteredEntries.length > 0) {
     andConditions.push({
-      $and: Object.entries(filterData).map(([key, value]) => ({
+      $and: filteredEntries.map(([key, value]) => ({
         [key]: value,
       })),
     })
@@ -351,17 +375,11 @@ const getMyPostedJobs = async (
   const whereConditions = andConditions.length ? { $and: andConditions } : {}
 
   const [result, total] = await Promise.all([
-    Job.find({
-      createdBy: new Types.ObjectId(user.authId),
-      ...whereConditions,
-    })
+    Job.find(whereConditions)
       .skip(skip)
       .limit(limit)
-      .sort({ [sortBy]: sortOrder }),
-    Job.countDocuments({
-      createdBy: new Types.ObjectId(user.authId),
-      ...whereConditions,
-    }),
+      .sort({ [sortBy]: sortOrder === 'desc' ? -1 : 1 }),
+    Job.countDocuments(whereConditions),
   ])
 
   return {

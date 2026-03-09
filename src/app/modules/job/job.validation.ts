@@ -114,4 +114,19 @@ export const JobValidations = {
       availability: z.array(availabilityEnum).optional(),
     }),
   }),
+  getAllJobs: z.object({
+    query: z.object({
+      searchTerm: z.string().optional(),
+      category: z.string().optional(),
+      subCategory: z.string().optional(),
+      salaryType: z.string().optional(),
+      minSalary: z.string().transform(val => Number(val)).optional(),
+      maxSalary: z.string().transform(val => Number(val)).optional(),
+      minRating: z.string().transform(val => Number(val)).optional(),
+      maxRating: z.string().transform(val => Number(val)).optional(),
+      latitude: z.string().transform(val => Number(val)).optional(),
+      longitude: z.string().transform(val => Number(val)).optional(),
+      radius: z.string().transform(val => Number(val)).optional(),
+    }),
+  }),
 }

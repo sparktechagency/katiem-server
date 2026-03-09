@@ -16,6 +16,7 @@ router.get(
     USER_ROLES.WORKER,
     USER_ROLES.GUEST,
   ),
+  validateRequest(JobValidations.getAllJobs),
   JobController.getAllJobs,
 )
 
