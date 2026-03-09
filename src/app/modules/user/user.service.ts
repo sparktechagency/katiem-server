@@ -144,10 +144,12 @@ const getWorkers = async (
 
   // If frontend didn't provide lat/lng, fetch from profile
   if (latitude === undefined || longitude === undefined) {
-    const currentUser = await User.findById(user.authId).select('location').lean()
-    if (currentUser?.location?.coordinates) {
-      finalLng = currentUser.location.coordinates[0]
-      finalLat = currentUser.location.coordinates[1]
+    if (user.role === USER_ROLES.EMPLOYER) {
+      const currentUser = await User.findById(user.authId).select('location').lean()
+      if (currentUser?.location?.coordinates) {
+        finalLng = currentUser.location.coordinates[0]
+        finalLat = currentUser.location.coordinates[1]
+      }
     }
   }
 
