@@ -2,9 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import ApiError from '../../../errors/ApiError'
 import { IUser, IUserFilterableFields } from './user.interface'
 import { User } from './user.model'
-
 import { USER_ROLES, USER_STATUS } from '../../../enum/user'
-
 import { JwtPayload } from 'jsonwebtoken'
 import { logger } from '../../../shared/logger'
 import { ImageUploadPayload } from '../../../interfaces/shared'
@@ -82,7 +80,6 @@ const createAdmin = async (): Promise<Partial<IUser> | null> => {
 }
 
 const getWorkers = async (
-  user: JwtPayload,
   filters: IUserFilterableFields,
   paginationOptions: IPaginationOptions,
 ) => {
@@ -141,17 +138,6 @@ const getWorkers = async (
   let finalLat: number | undefined = latitude
   let finalLng: number | undefined = longitude
   let finalRadius: number = radius || 100 // Default 100km if not provided by frontend
-
-  // If frontend didn't provide lat/lng, fetch from profile
-  if (latitude === undefined || longitude === undefined) {
-    if (user.role === USER_ROLES.EMPLOYER) {
-      const currentUser = await User.findById(user.authId).select('location').lean()
-      if (currentUser?.location?.coordinates) {
-        finalLng = currentUser.location.coordinates[0]
-        finalLat = currentUser.location.coordinates[1]
-      }
-    }
-  }
 
   // Apply filter ONLY if we successfully resolved coordinates (either from frontend or profile)
   if (finalLat !== undefined && finalLng !== undefined) {

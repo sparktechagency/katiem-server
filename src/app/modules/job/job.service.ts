@@ -62,7 +62,6 @@ const createJob = async (userPayload: JwtPayload, payload: CreateJobPayload) => 
 }
 
 const getAllJobs = async (
-  user: JwtPayload,
   filterables: IJobFilterables,
   pagination: IPaginationOptions,
 ) => {
@@ -114,17 +113,6 @@ const getAllJobs = async (
   let finalLat: number | undefined = latitude
   let finalLng: number | undefined = longitude
   let finalRadius: number = radius || 100 // Default 100km if not provided by frontend
-
-  // If frontend didn't provide lat/lng, fetch from profile
-  if (latitude === undefined || longitude === undefined) {
-    if (user.role === USER_ROLES.WORKER) {
-      const currentUser = await User.findById(user.authId).select('location').lean()
-      if (currentUser?.location?.coordinates) {
-        finalLng = currentUser.location.coordinates[0]
-        finalLat = currentUser.location.coordinates[1]
-      }
-    }
-  }
 
   // Apply filter ONLY if we successfully resolved coordinates (either from frontend or profile)
   if (finalLat !== undefined && finalLng !== undefined) {

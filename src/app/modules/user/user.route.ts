@@ -38,11 +38,6 @@ router.post(
 
 router.get(
   '/workers',
-  auth(
-    USER_ROLES.ADMIN,
-    USER_ROLES.EMPLOYER,
-    USER_ROLES.GUEST,
-  ),
   validateRequest(UserValidations.getWorkersZodSchema),
   UserController.getWorkers,
 )

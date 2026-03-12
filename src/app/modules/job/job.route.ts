@@ -10,12 +10,6 @@ const router = express.Router()
 
 router.get(
   '/',
-  auth(
-    USER_ROLES.ADMIN,
-    USER_ROLES.EMPLOYER,
-    USER_ROLES.WORKER,
-    USER_ROLES.GUEST,
-  ),
   validateRequest(JobValidations.getAllJobs),
   JobController.getAllJobs,
 )

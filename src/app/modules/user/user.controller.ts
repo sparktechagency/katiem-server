@@ -27,8 +27,7 @@ const getWorkers = catchAsync(async (req: Request, res: Response) => {
   console.log(req.query)
   const paginationOptions = pick(req.query, paginationFields)
   const filterOptions = pick(req.query, user_filterable_fields)
-  const { user } = req
-  const result = await UserServices.getWorkers(user!, filterOptions, paginationOptions)
+  const result = await UserServices.getWorkers(filterOptions, paginationOptions)
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
