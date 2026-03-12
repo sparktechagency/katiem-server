@@ -9,7 +9,7 @@ import { paginationFields } from '../../../interfaces/pagination';
 import { Types } from 'mongoose';
 
 const createChat = catchAsync(async (req: Request, res: Response) => {
-  const participant = new Types.ObjectId(req.params.participant);
+  const participant = new Types.ObjectId(req.params.participant as string);
   const result = await ChatServices.createChat(
     req.user!,
     participant
@@ -27,8 +27,10 @@ const createChat = catchAsync(async (req: Request, res: Response) => {
 const getAllChats = catchAsync(async (req: Request, res: Response) => {
 
 
+  const filterables = pick(req.query, chatFilterables);
   const result = await ChatServices.getAllChats(
-    req.user!
+    req.user!,
+    filterables
   );
 
   sendResponse(res, {
@@ -41,7 +43,7 @@ const getAllChats = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleChat = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await ChatServices.getSingleChat(id);
+  const result = await ChatServices.getSingleChat(id as string);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -53,7 +55,7 @@ const getSingleChat = catchAsync(async (req: Request, res: Response) => {
 
 const deleteChat = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await ChatServices.deleteChat(id);
+  const result = await ChatServices.deleteChat(id as string);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,

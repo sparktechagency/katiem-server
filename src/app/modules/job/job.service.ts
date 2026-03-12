@@ -182,7 +182,12 @@ const getSingleJob = async (user: JwtPayload, id: string): Promise<IJob> => {
     throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid Job ID')
   }
 
-  const result = await Job.findById(id).populate('createdBy').lean()
+  const result = await Job.findById(id)
+    .populate({
+      path: 'createdBy',
+      select: 'name profile email phone rating totalReview isAccountVerified address businessName companyNumber employerType',
+    })
+    .lean()
   if (!result) {
     throw new ApiError(
       StatusCodes.NOT_FOUND,
@@ -229,6 +234,9 @@ const getSingleJob = async (user: JwtPayload, id: string): Promise<IJob> => {
 
   return result
 }
+
+
+
 
 const updateJob = async (
   user: JwtPayload,

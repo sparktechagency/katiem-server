@@ -1,7 +1,8 @@
 import { StatusCodes } from 'http-status-codes'
 import ApiError from '../../../errors/ApiError'
-import { IChat } from './chat.interface'
+import { IChat, IChatFilterables } from './chat.interface'
 import { Chat } from './chat.model'
+import { User } from '../user/user.model'
 import { JwtPayload } from 'jsonwebtoken'
 
 import mongoose, { Types } from 'mongoose'
@@ -108,8 +109,30 @@ const createChat = async (user: JwtPayload, participantId: Types.ObjectId) => {
   return formattedChat
 }
 
-const getAllChats = async (user: JwtPayload) => {
-  const result = await Chat.find({ participants: { $in: [user.authId] } })
+const getAllChats = async (user: JwtPayload, filters: IChatFilterables) => {
+  const { searchTerm } = filters
+  const andConditions: any[] = []
+
+  andConditions.push({ participants: { $in: [user.authId] } })
+
+  if (searchTerm) {
+    const matchingUsers = await User.find({
+      $or: [
+        { name: { $regex: searchTerm, $options: 'i' } },
+        { email: { $regex: searchTerm, $options: 'i' } },
+      ],
+    })
+      .select('_id')
+      .lean()
+
+    const matchingUserIds = matchingUsers.map(u => u._id)
+
+    andConditions.push({ participants: { $in: matchingUserIds } })
+  }
+
+  const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {}
+
+  const result = await Chat.find(whereConditions)
     .populate('participants')
     .populate('latestMessage')
     .lean()
@@ -117,7 +140,7 @@ const getAllChats = async (user: JwtPayload) => {
   const formattedChat = result.map(chat => ({
     _id: chat._id,
     participant: chat.participants.find(
-      p => p._id.toString() !== user.authId.toString(),
+      (p: any) => p._id.toString() !== user.authId.toString(),
     ),
     latestMessage: chat.latestMessage,
   }))
